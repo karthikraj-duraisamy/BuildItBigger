@@ -37,7 +37,9 @@ dependencies {
     compile project(':joketellerlib')
     compile project(':jokedisplaylibrary')
     compile project(path: ':backend', configuration: 'android-endpoints')
-    // https://mvnrepository.com/artifact/com.google.http-client/google-http-client-android
+
+
+
     compile group: 'com.google.http-client', name: 'google-http-client-android', version: '1.12.0-beta'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

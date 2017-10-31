@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
-import android.widget.Toast;
 
-import com.example.JokeTeller;
 import com.example.karthik.myapplication.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -24,6 +22,16 @@ import java.io.IOException;
 public class EndPointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+
+    private JokePullTaskListener jokePullTaskListener;
+
+    public EndPointsAsyncTask(JokePullTaskListener jokePullTaskListener) {
+        this.jokePullTaskListener = jokePullTaskListener;
+    }
+
+    public interface JokePullTaskListener {
+        void jokePullCompleted();
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -46,7 +54,6 @@ public class EndPointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         }
 
         context = params[0].first;
-        String name = params[0].second;
 
         try {
             return myApiService.joke().execute().getData();
@@ -57,8 +64,11 @@ public class EndPointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
+        if(jokePullTaskListener != null)
+            jokePullTaskListener.jokePullCompleted();
+
         Intent jokerFaceIntent = new Intent(context, JokerFaceActivity.class);
-        jokerFaceIntent.putExtra(JokerFaceActivity.JOKE_KEY, JokeTeller.getJoke());
+        jokerFaceIntent.putExtra(JokerFaceActivity.JOKE_KEY, result);
         context.startActivity(jokerFaceIntent);
     }
 }

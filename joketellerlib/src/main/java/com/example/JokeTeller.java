@@ -17,14 +17,7 @@ public class JokeTeller {
             "Did you hear about the skeleton that dropped out of medical school? He just didn’t have the stomach for it.",
             "The skeleton cried his eyes out because he didn’t have any body to love.",
             "I wanted to tell a skeleton pun, but I don’t have the guts for it.",
-            "That skeleton sure brought his appetite to the picnic—and also some spare ribs."
-    };
-
-
-    /**
-     * String array containing some jokes.
-     */
-    private static final String[] JOKES = {
+            "That skeleton sure brought his appetite to the picnic—and also some spare ribs.",
             "A lot of people cry when they cut onions. The trick is not to form an emotional bond.",
             "I wrote a song about a tortilla. Well actually, it’s more of a wrap.",
             "Some people just have a way with words, and other people … oh … not have way.",
@@ -38,15 +31,6 @@ public class JokeTeller {
             "A conference call is the best way for a dozen people to say “bye” 300 times"
     };
 
-    /**
-     * Get a random joke
-     *
-     * @return random joke in string format
-     */
-    public static String getJoke() {
-        int random = new Random(System.currentTimeMillis()).nextInt(10);
-        return String.format(Locale.getDefault(), "%s", JOKES[random]);
-    }
 
     /**
      * Get a random joke for google app engine module
@@ -54,7 +38,7 @@ public class JokeTeller {
      * @return random joke in string format
      */
     public static String getBackendJoke() {
-        int random = new Random(System.currentTimeMillis()).nextInt(10);
+        int random = new Random(System.currentTimeMillis()).nextInt(BACKEND_JOKES.length);
         return String.format(Locale.getDefault(), "%s", BACKEND_JOKES[random]);
     }
 
